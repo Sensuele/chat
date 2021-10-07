@@ -1,19 +1,18 @@
-// /* eslint-disable import/no-anonymous-default-export */
-// import { SET_MESSAGE, CLEAR_MESSAGE } from "../action/types";
+/* eslint-disable import/no-anonymous-default-export */
+import { SET_MESSAGE, CLEAR_MESSAGE } from "../action/types";
 
-// const initialState = {};
+const initialState = {};
 
-// export default function (state = initialState, action) {
-//   const { type, payload } = action;
+export default function (state = initialState, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case SET_MESSAGE:
+      return {message: payload};
 
-//   switch (type) {
-//     case SET_MESSAGE:
-//       return { message: payload };
+      case CLEAR_MESSAGE:
+        return {message: ""};
 
-//     case CLEAR_MESSAGE:
-//       return { message: "" };
-
-//     default:
-//       return state;
-//   }
-// }
+        default:
+          return state;
+  }
+}
