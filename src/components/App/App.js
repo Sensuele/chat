@@ -6,17 +6,17 @@ import HomePage from "../HomePage";
 import SignUp from "../SignUp/SignUp";
 import { Provider } from "react-redux";
 import store from "../../store/store";
+import Login from "../Login/Login";
 
 const App = () => {
   return (
-    <div>
       <Provider  store={store}>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/login" component={Login} />
         </Switch>
         </Provider>
-    </div>
   );
 };
 
