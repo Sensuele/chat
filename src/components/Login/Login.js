@@ -53,7 +53,7 @@ const Login = (props) => {
         .then(() => {
 
           props.history.push("/");
-          // window.location.reload();
+          window.location.reload();
         })
         .catch(() => {
           setLoading(false);

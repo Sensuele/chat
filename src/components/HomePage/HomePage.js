@@ -1,13 +1,36 @@
-import React from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import userServices from "../../store/services/user.services";
 
 const HomePage = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
 
-  // if (!currentUser) {
-  //   return <Redirect to="/login" />;
-  // }
+  if (!currentUser) {
+    return <Redirect to="/login" />;
+  }
+
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    userServices.getUserBoard().then(
+      (response) => {
+        setContent(response.data);
+      },
+      (error) => {
+        const _content =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setContent(_content);
+      }
+    );
+  }, []);
+  console.log(content);
   return (
     <div className="container">
       <header className="jumbotron">
@@ -15,21 +38,7 @@ const HomePage = () => {
           {/* <strong>{currentUser.username}</strong> Profile */}
         </h3>
       </header>
-      <p>
-        <strong>Token:</strong> {currentUser.access_token.substring(0, 20)} ...{" "}
-        {/* {currentUser.accessToken.substr(currentUser.accessToken.length - 20)} */}
-      </p>
-      {/* <p>
-        <strong>Id:</strong> {currentUser.id}
-      </p> */}
-      {/* <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p> */}
-      {/* <strong>Authorities:</strong> */}
-      {/* <ul>
-        {currentUser.roles &&
-          currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul> */}
+   
     </div>
   );
 };
